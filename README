@@ -1,0 +1,29 @@
+MinnowBoard-Max Extras
+======================
+This test suite provides basic validation test of the MinnowBoard-Max, including
+Lure specific tests and example boardfiles.
+
+Installation
+============
+These tests are meant to be run by copying the test suite to a filesystem
+accessible by the minnowmax from a Linux OS.
+
+Notes on Implementation
+=======================
+The Linux OS tests rely heavily on the /sys filesystem to expose device
+information and basic input and output control of GPIO and PWM devices. The i2c
+tests make use of the i2cdetect and other tools from the i2ctools package. Where
+possible, the tests attempt to dynamically determine the correct device name in
+order to account for difference in PCI and ACPI enumeration.
+
+Due to the mulifunction nature of the expansion IO lines, some tests will fail
+with somewhat cryptic errors. If you experience this, be sure to check the LPSS
+device configuration in the firmware which will determine if the various lines
+are used for GPIO or for their native function.
+
+TODO
+====
+* Provide more robust testing for the required devices and GPIO lines in order
+  to provide more useful feedback to the user in the event of a failure.
+* Write a basic UART test
+* Write a SPI test
