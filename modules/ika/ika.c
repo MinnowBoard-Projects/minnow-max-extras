@@ -36,16 +36,16 @@ static int __init ika_lure_init(void)
 {
 	struct i2c_adapter *adapter;
 
-#ifndef CONFIG_SENSORS_ADS1015
-#error CONFIG_SENSORS_ADS1015 must be defined.
+#ifdef CONFIG_SENSORS_ADS1015_MODULE
+        if (request_module("ads1015")) {
+                pr_err("ads1015 module is unavailable.\n");
+                return -ENODEV;
+        }
 #else
-#ifdef MODULE
-	if (request_module("ads1015")) {
-		pr_err("ads1015 module is unavailable.\n");
-		return -ENODEV;
-	}
-#endif /* MODULE */
+#ifndef CONFIG_SENSORS_ADS1015
+#error SENSORS_ADS1015 is required
 #endif /* CONFIG_SENSORS_ADS1015 */
+#endif /* CONFIG_SENSORS_ADS1015_MODULE */
 
 	adapter = i2c_get_adapter(IKA_ADS1015_BUS_NUMBER);
 	if (!adapter) {
