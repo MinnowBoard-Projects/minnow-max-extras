@@ -3,6 +3,26 @@
 LED1=248
 LED2=249
 
+#
+# Between Linux kernel 3.17 and 3.18 there was a change in how GPIOs are enumerated
+# specifically instead of counting down from 256, they now count down from 512.
+# This means that all GPIOs are now offset by an additional 256 in newer kernels
+# so the following code attempts to handle that
+#
+
+OFFSET="0"
+
+KERNEL_MAJOR_MINOR=$( uname -r | awk 'BEGIN { FS="."; } ; { print $1 "." $2; }' )
+
+if [[ ${KERNEL_MAJOR_MINOR} > 3.17 ]]
+then
+	OFFSET="256"
+fi
+
+LED1=$(( ${LED1} + ${OFFSET} ))
+LED2=$(( ${LED2} + ${OFFSET} ))
+
+
 led1() {
 	echo $1 > /sys/class/gpio/gpio$LED1/value
 }
