@@ -1,4 +1,4 @@
-KDIR := "/usr/src/kernel"
+KDIR ?= /lib/modules/`uname -r`/build
 
 obj-m := low-speed-spidev.o
 
