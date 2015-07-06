@@ -1,14 +1,14 @@
-KERNEL_SRC := "/usr/src/kernel"
+KDIR ?= "/usr/src/kernel"
 
 obj-m := calamari.o
 
 SRC := $(shell pwd)
 
 all:
-	$(MAKE) -C $(KERNEL_SRC) M=$(SRC)
+	$(MAKE) -C $(KDIR) M=$(SRC)
 
 modules_install:
-	$(MAKE) -C $(KERNEL_SRC) M=$(SRC) modules_install
+	$(MAKE) -C $(KDIR) M=$(SRC) modules_install
 
 clean:
 	rm -f *.o *~ core .depend .*.cmd *.ko *.mod.c
