@@ -1,0 +1,4 @@
+d41d8cd98f00b204e9800998ecf8427e  usr/share/doc/low-speed-spidev-dkms/copyright
+06ddd8b4bcaaa8a14bbce853ad6df654  usr/src/low-speed-spidev-1.0/Makefile
+a4b1b631fe5cc0befc7b5bddc5c92da4  usr/src/low-speed-spidev-1.0/dkms.conf
+70245dd4a30d8780391f1a724450876c  usr/src/low-speed-spidev-1.0/low-speed-spidev.c

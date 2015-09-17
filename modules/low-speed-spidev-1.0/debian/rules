@@ -1,0 +1,34 @@
+#!/usr/bin/make -f
+# -*- makefile -*-
+
+name = low-speed-spidev
+version := $(shell dpkg-parsechangelog | grep '^Version:' |cut -d ' ' -f2 |\
+ rev | cut -d- -f2 | rev)
+
+%:
+	dh $@ --with dkms
+
+build:
+	$(info "---build---")
+
+override_dh_auto_clean:
+	$(info "---autoclean---")
+
+override_dh_auto_build:
+	$(info "---autobuild---")
+
+override_dh_dkms:
+	$(info "---dh_dkms---")
+	dh_dkms -p $(name)-dkms -V $(version)
+
+override_dh_auto_install:
+	$(info "---dh_auto_install---")
+	# low-speed-spidev-dkms
+	dh_installdirs -p $(name)-dkms usr/src/$(name)-$(version)
+	dh_install -p $(name)-dkms Makefile usr/src/$(name)-$(version)
+	dh_install -p $(name)-dkms low-speed-spidev.c usr/src/$(name)-$(version)
+
+	#$(MAKE) DESTDIR=$$(pwd)/debian/low-speed-spidev-dkms prefix=/usr install
+
+override_dh_installchangelogs:
+	$(info "---installchangelogs---")

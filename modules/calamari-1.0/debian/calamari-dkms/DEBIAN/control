@@ -1,0 +1,11 @@
+Package: calamari-dkms
+Source: calamari
+Version: 1.0-1
+Architecture: amd64
+Maintainer: Justin "Chetco" Brown <justin.m.brown@intel.com>
+Installed-Size: 36
+Depends: dkms (>= 2.1.0.0)
+Section: kernel
+Priority: extra
+Description: A dkms module for the Minnowboard MAX's calamari lure.
+ Loads some information about the calamari into the kernel.

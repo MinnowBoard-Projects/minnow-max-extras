@@ -1,0 +1,12 @@
+Package: low-speed-spidev-dkms
+Source: low-speed-spidev
+Version: 1.0-1
+Architecture: amd64
+Maintainer: Justin "Chetco" Brown <justin.m.brown@intel.com>
+Installed-Size: 37
+Depends: dkms (>= 2.1.0.0)
+Section: kernel
+Priority: optional
+Description: A dkms module for the Minnowboard MAX's spi device
+ Loads some information into the kernel regarding the Minnowboard's
+ spi device.

@@ -1,0 +1,4 @@
+d41d8cd98f00b204e9800998ecf8427e  usr/share/doc/calamari-dkms/copyright
+688374b35f616865d1312423b6c7137f  usr/src/calamari-1.0/Makefile
+f791a00e620ae4c95d90ec31d7a536b3  usr/src/calamari-1.0/calamari.c
+3de1d3103b81d808448968b03497e3fa  usr/src/calamari-1.0/dkms.conf
