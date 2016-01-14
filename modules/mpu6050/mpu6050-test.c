@@ -31,6 +31,7 @@ static struct i2c_board_info mpu6050_accel_device = {
 static struct i2c_client *i2c_client;
 static int __init mpu6050_init(void)
 {
+	int ret;
 	int i = 0;
 	struct i2c_adapter *adap = NULL;
 
@@ -43,6 +44,16 @@ static int __init mpu6050_init(void)
 			break;
 	}
 
+	if (!gpio_is_valid(MPU6050_I2C_IRQ)) {
+		printk(KERN_WARNING "GPIO#%d is not valid\n", MPU6050_I2C_IRQ);
+		return -EINVAL;
+	}
+
+	ret = gpio_request_one(MPU6050_I2C_IRQ, GPIOF_IN, "mpu6050-irq");
+	if (ret) {
+		printk(KERN_WARNING "failed to request GPIO#%d\n", MPU6050_I2C_IRQ);
+		return ret;
+	}
 	mpu6050_accel_device.irq = gpio_to_irq(MPU6050_I2C_IRQ);
 
 	i2c_client = i2c_new_device(adap, &mpu6050_accel_device);
@@ -52,6 +63,7 @@ static int __init mpu6050_init(void)
 static void __exit mpu6050_exit(void)
 {
 	i2c_unregister_device(i2c_client);
+	gpio_free(MPU6050_I2C_IRQ);
 }
 MODULE_LICENSE("GPL");
 module_init(mpu6050_init);
