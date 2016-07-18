@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 #
 # Use GPIO 104 if you are on a kernel older than 3.18
@@ -22,7 +22,7 @@ fi
 
 LED1=$(( ${LED1} + ${OFFSET} ))
 
-led1(
+led1() {
 	echo $1 > /sys/class/gpio/gpio$LED1/value
 }
 
