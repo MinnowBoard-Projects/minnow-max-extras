@@ -4,6 +4,26 @@ S1=216
 S2=227
 S3=226
 
+#
+# Between Linux kernel 3.17 and 3.18 there was a change in how GPIOs are enumerated
+# specifically instead of counting down from 256, they now count down from 512.
+# This means that all GPIOs are now offset by an additional 256 in newer kernels
+# so the following code attempts to handle that
+#
+
+OFFSET="0"
+
+KERNEL_MAJOR_MINOR=$( uname -r | awk 'BEGIN { FS="."; } ; { print $1 "." $2; }' )
+
+if [[ ${KERNEL_MAJOR_MINOR} > 3.17 ]]
+then
+	OFFSET="256"
+fi
+
+S1=$(( ${S1} + ${OFFSET} ))
+S2=$(( ${S2} + ${OFFSET} ))
+S3=$(( ${S3} + ${OFFSET} ))
+
 printval() {
 	cat /sys/class/gpio/gpio$1/value
 }
