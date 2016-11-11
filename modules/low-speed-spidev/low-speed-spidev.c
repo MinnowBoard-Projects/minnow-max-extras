@@ -20,12 +20,14 @@
 #include <linux/platform_device.h>
 #include <linux/module.h>
 #include <linux/spi/spi.h>
+#include <linux/dmi.h>
 
 #if (!defined(CONFIG_SPI_SPIDEV_MODULE) && !defined(CONFIG_SPI_SPIDEV))
         #error SPI_SPIDEV is required.
 #endif
 
 /* Change these values to what your board uses. */
+#define BOARD_NAME "MinnowBoard"
 #define LOW_SPEED_SPIDEV_SPI_BUS 0
 #define LOW_SPEED_SPIDEV_SPI_CS 0
 #define LOW_SPEED_SPIDEV_MAX_CLK_HZ 1000000
@@ -47,6 +49,14 @@ static int __init low_speed_spidev_module_init(void)
 	pr_info("module init\n");
 
 	err = -ENODEV;
+
+    const char* board_name = dmi_get_system_info(DMI_BOARD_NAME);
+    pr_info("board name=%s\n", board_name);
+
+    if (strncmp(board_name, BOARD_NAME, strlen(BOARD_NAME)) != 0) {
+	    pr_info("%s not detected\n", BOARD_NAME);
+	    goto out;
+    }
 
 	master = spi_busnum_to_master(LOW_SPEED_SPIDEV_SPI_BUS);
 	pr_info("master=%p\n", master);
