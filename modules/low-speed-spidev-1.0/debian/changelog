@@ -1,0 +1,5 @@
+low-speed-spidev (1.0-1) UNRELEASED; urgency=low
+
+  * Initial release.
+
+ -- Justin "Chetco" Brown <justin.m.brown@intel.com>  Tue, 18 Aug 2015 04:20:22 -0700

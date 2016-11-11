@@ -1,0 +1,27 @@
+#!/usr/bin/make -f
+# -*- makefile -*-
+
+name = calamari
+version := $(shell dpkg-parsechangelog | grep '^Version:' |cut -d ' ' -f2 |\
+ rev | cut -d- -f2 | rev)
+
+%:
+	dh $@ --with dkms
+
+build:
+
+override_dh_auto_clean:
+
+override_dh_auto_build:
+
+override_dh_dkms:
+	dh_dkms -p $(name)-dkms -V $(version)
+
+override_dh_auto_install:
+	dh_installdirs -p $(name)-dkms usr/src/$(name)-$(version)
+	dh_install -p $(name)-dkms Makefile usr/src/$(name)-$(version)
+	dh_install -p $(name)-dkms calamari.c usr/src/$(name)-$(version)
+
+	#$(MAKE) DESTDIR=$$(pwd)/debian/low-speed-spidev-dkms prefix=/usr install
+
+override_dh_installchangelogs:

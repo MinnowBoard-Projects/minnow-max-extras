@@ -1,0 +1,13 @@
+Source: low-speed-spidev
+Maintainer: Justin "Chetco" Brown <justin.m.brown@intel.com>
+Section: kernel
+Priority: optional
+Standards-Version: 3.9.4
+Build-Depends: debhelper (>= 9), dkms
+
+Package: low-speed-spidev-dkms
+Architecture: linux-any
+Depends: ${shlibs:Depends}, ${misc:Depends}, dkms
+Description: A dkms module for the Minnowboard MAX's spi device
+ Loads some information into the kernel regarding the Minnowboard's
+ spi device.
